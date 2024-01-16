@@ -40,7 +40,7 @@ def mileage():
 
     #   Drawing the Odometer
     digital_odo = odometer
-    odo_text = odo_font.render(str(digital_odo), True, NEON_GREEN)
+    odo_text = odo_font.render(str(digital_odo), True, COR_WHITE1)
     text_rect = odo_text.get_rect()
     text_rect.midright = ODO_L_XY
     WIN.blit(odo_text, text_rect)
@@ -51,10 +51,10 @@ def draw_clock():
     Drawing the clock - currently only 24hr. I'm sure its easy to adapt to 12hr.
     '''
     now = datetime.now()
-    bgclock_text = digital_font.render("00:00", True, DARK_GREY)
+    bgclock_text = digital_font.render("", True, DARK_GREY)
     WIN.blit(bgclock_text, CLOCK_XY)
     digital_text = now.strftime('%H:%M')
-    text = digital_font.render(digital_text, True, NEON_GREEN)
+    text = digital_font.render(digital_text, True, COR_WHITE)
     WIN.blit(text, CLOCK_XY)
 
 #####
@@ -64,7 +64,7 @@ def draw_clock():
 def draw_fuel_text():
     global digital_font
     digital_fuel = fuel_status
-    fuel_text = digital_font.render(str(int(digital_fuel)), True, NEON_GREEN)
+    fuel_text = digital_font.render(str(int(digital_fuel)), True, COR_WHITE1)
     text_rect = fuel_text.get_rect()
     text_rect.midright = 1717, 667
     WIN.blit(fuel_text, text_rect)
@@ -74,7 +74,7 @@ def draw_speedometer_text():
     ''' Speedometer Font Testing '''
     global speed_status
     global font_speedunits
-    speedtext = font_speedunits.render(str(speed_status), True, NEON_YELLOW)
+    speedtext = font_speedunits.render(str(speed_status), True, COR_WHITE)
     text_rect = speedtext.get_rect()
     text_rect.midright = SPEEDO_XY
     WIN.blit(speedtext, text_rect)
@@ -87,7 +87,7 @@ def draw_mfa():
 
     WIN.blit(MFA, MFABG_XY)
     #   Draw MFA display
-    text = digital_font.render(str(outside_temp_status), True, NEON_GREEN)
+    text = digital_font.render(str(outside_temp_status), True, COR_WHITE1)
     #   Enables the text to be right center aligned
     text_rect = text.get_rect()
     text_rect.midright = MFA_XY

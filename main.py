@@ -28,12 +28,31 @@ from constants import *
 from variables import *
 from draw import *
 
+
+
+
+
 #   Import pygame, for main graphics functions
 #   Date time is for the clock and perhaps MQTT
 #   Paho to handle the MQTT subscription from Node-Red
 
+#vou mexer aqui depois quando comprar o arduino e gps
+'''# Arquivo: main.py
+
+from gps_reader import read_gps_speed
+
+# Restante do seu código...
+
+def on_message_speed_gps(digi, obj, message):
+    global speed_gps_status
+    speed_gps_status = read_gps_speed()
+    # Restante da sua lógica...'''
+
 # Setup Display
 pygame.init()
+
+
+
 
 # Title and Icon
 pygame.display.set_icon(programIcon)
@@ -48,11 +67,12 @@ font_speedunits = pygame.font.Font(FONT_PATH, FONT_LARGE)
 clock = pygame.time.Clock()
 
 #   Create gauge instances from classes.
-boost = AuxGauge(BOOST_XY, 19)
-egt = AuxGauge(EGT_XY, 19)
+#boost = AuxGauge(BOOST_XY, 19)
+#egt = AuxGauge(EGT_XY, 19)
 coolant = AuxGauge(COOLANT_XY, 19)
-oilpressure = AuxGauge(OILPRESSURE_XY, 19)
-rpm = RpmGauge(RPM_XY, 50)
+#oilpressure = AuxGauge(OILPRESSURE_XY, 19)
+rpm = RpmGauge(RPM_XY, 40
+)
 
 
 #   Creating the list for the indicator gauges
@@ -234,7 +254,7 @@ def mileage():
     odofile.close()
 
     digital_odo = odometer
-    odo_text = odo_font.render(str(digital_odo), True, NEON_GREEN)
+    odo_text = odo_font.render(str(digital_odo), True, COR_WHITE)
     text_rect = odo_text.get_rect()
     text_rect.midright = ODO_L_XY
     WIN.blit(odo_text, text_rect)
@@ -246,9 +266,9 @@ def mileage():
 def draw_fuel_text():
     #global digital_font
     digital_fuel = fuel_status
-    fuel_text = digital_font.render(str(int(digital_fuel)), True, NEON_GREEN)
+    fuel_text = digital_font.render(str(int(digital_fuel)), True, COR_WHITE1)
     text_rect = fuel_text.get_rect()
-    text_rect.midright = 1717, 667
+    text_rect.midright = (1600, 540)
     WIN.blit(fuel_text, text_rect)
 
 
@@ -258,10 +278,11 @@ def draw_speedometer_text():
     '''
     #global speed_status
     #global font_speedunits
-    speedtext = font_speedunits.render(str(speed_status), True, NEON_YELLOW)
+    speedtext = font_speedunits.render(str(speed_status), True, COR_WHITE)
     text_rect = speedtext.get_rect()
     text_rect.midright = SPEEDO_XY
     WIN.blit(speedtext, text_rect)
+
 
 def draw_mfa():
     '''
@@ -271,7 +292,7 @@ def draw_mfa():
 
     WIN.blit(MFA, MFABG_XY)
     #   Draw MFA display
-    text = digital_font.render(str(outside_temp_status), True, NEON_GREEN)
+    text = digital_font.render(str(outside_temp_status), True, COR_WHITE1)
     #   Enables the text to be right center aligned
     text_rect = text.get_rect()
     text_rect.midright = MFA_XY
@@ -308,18 +329,18 @@ def draw_indicators():
 
     #   To highlight the fuel reserve indicator (factory is at 7 litres
     if fuel_status <= 7:
-        WIN.blit(fuelresOn, (1795, 616))
+        WIN.blit(fuelresOn, (1650, 490))
     else:
-        WIN.blit(fuelresOff, (1795, 616))
+        WIN.blit(fuelresOff, (1650, 490))
 
 #   Main Drawings for the program - Background + Gauges
 def draw_digifiz():
     WIN.blit(BACKGROUND, (0, 0))
     rpm.show(WIN)
     coolant.show(WIN)
-    boost.show(WIN)
-    oilpressure.show(WIN)
-    egt.show(WIN)
+    #boost.show(WIN)
+    #oilpressure.show(WIN)
+    #egt.show(WIN)
     mileage()
     draw_indicators()
     draw_clock()
@@ -330,6 +351,7 @@ def draw_digifiz():
 #####
 #       Main Function for the Pygame Program
 #####
+
 
 def main():
     #   MQTT Variables
